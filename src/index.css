@@ -7,11 +7,11 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-	@apply h-[8px];
+	@apply h-[8px] w-[8px];
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-	@apply rounded-full bg-slate-800;
+	@apply rounded-full bg-slate-900;
 }
 
 nav a {

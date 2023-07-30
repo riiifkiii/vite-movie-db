@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import {
+	getAiringTodayFetch,
 	getPopularFetch,
 	getTrendingFetch,
 	getUpcomingFetch,
 } from "../../utility/fetching";
 import Slider from "../../components/Slider";
-import Card from "../../components/Card";
+import List from "../../components/List";
 
 export default function Home() {
 	const [trendings, setTrendings] = useState([]);
 	const [upcomings, setUpcomings] = useState([]);
+	const [tvShowAiringToday, setTvShowAiringToday] = useState([]);
 	const [popularPerson, setPopularPerson] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -19,9 +21,11 @@ export default function Home() {
 				const dataTrendings = await getTrendingFetch("movie", "day");
 				const dataUpcoming = await getUpcomingFetch();
 				const dataPopularPerson = await getPopularFetch("person");
+				const dataTvShowAiringToday = await getAiringTodayFetch();
 				setTrendings(dataTrendings);
 				setUpcomings(dataUpcoming);
 				setPopularPerson(dataPopularPerson);
+				setTvShowAiringToday(dataTvShowAiringToday);
 			} catch (error) {
 				console.log(error);
 			} finally {
@@ -34,7 +38,7 @@ export default function Home() {
 
 	if (isLoading) return "Loading...";
 
-	console.log(trendings, upcomings, popularPerson);
+	console.log(tvShowAiringToday, popularPerson);
 
 	return (
 		<>
@@ -45,20 +49,18 @@ export default function Home() {
 						limit={10}
 						className={"h-[500px] w-full object-cover object-top"}
 					/>
-					<div className="m-2 border border-slate-200 bg-white p-2 shadow">
-						<div className="mb-2">
-							<h1 className="font-bold">Upcoming Movies</h1>
-						</div>
-						<div className=" custom-scrollbar overflow-x-scroll pb-1">
-							<div className="flex w-fit items-start gap-2">
-								{upcomings.results.slice(0, 10).map((item) => {
-									return (
-										<Card key={item.id} data={item} className={`w-[400px]`} />
-									);
-								})}
-							</div>
-						</div>
-					</div>
+					<List
+						data={upcomings.results}
+						title={"Upcomming Movies"}
+						className={"m-2"}
+						limit={10}
+					/>
+					<List
+						data={tvShowAiringToday.results}
+						title={"Tv Shows Airing Today"}
+						limit={10}
+						className={"m-2"}
+					/>
 				</main>
 			</section>
 		</>

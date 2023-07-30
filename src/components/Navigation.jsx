@@ -54,7 +54,7 @@ export default function Navigation() {
 				<li>
 					<NavLink
 						to={"/"}
-						className={(isActive) =>
+						className={({ isActive }) =>
 							(isActive ? "bg-slate-200" : "") + " flex items-center gap-2"
 						}
 					>
@@ -63,60 +63,112 @@ export default function Navigation() {
 					</NavLink>
 				</li>
 				<li className="group">
-					<div
-						className={"flex items-center gap-2 px-1 py-2 hover:bg-slate-200"}
+					<NavLink
+						to={"/movie"}
+						className={({ isActive }) =>
+							(isActive ? "bg-slate-200" : "") +
+							" pointer-events-none flex items-center gap-2 px-1 py-2 hover:bg-slate-200"
+						}
 					>
 						<BiMoviePlay />
 						<span>Movies</span>
 						<BiRightArrowAlt className="ml-auto transition-all duration-300 group-hover:rotate-90" />
-					</div>
+					</NavLink>
 					<ul className="ml-6 h-0 overflow-hidden transition-all duration-300 group-hover:h-[160px]">
 						<li>
-							<NavLink to={"/movie/trending"}>Trending</NavLink>
+							<NavLink
+								to={"/movie/trending"}
+								className={({ isActive }) => (isActive ? "bg-slate-200" : "")}
+							>
+								Trending
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to={"/movie/upcoming"}>Upcoming</NavLink>
+							<NavLink
+								to={"/movie/upcoming"}
+								className={({ isActive }) => (isActive ? "bg-slate-200" : "")}
+							>
+								Upcoming
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to={"/movie/popular"}>Popular</NavLink>
+							<NavLink
+								to={"/movie/popular"}
+								className={({ isActive }) => (isActive ? "bg-slate-200" : "")}
+							>
+								Popular
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to={"/movie/now-playing"}>Now Playing</NavLink>
+							<NavLink
+								to={"/movie/now-playing"}
+								className={({ isActive }) => (isActive ? "bg-slate-200" : "")}
+							>
+								Now Playing
+							</NavLink>
 						</li>
 					</ul>
 				</li>
 				<li className="group">
-					<div
-						className={"flex items-center gap-2 px-1 py-2 hover:bg-slate-200"}
+					<NavLink
+						to={"/tv"}
+						className={({ isActive }) =>
+							(isActive ? "bg-slate-200" : "") +
+							" pointer-events-none flex items-center gap-2 px-1 py-2 hover:bg-slate-200"
+						}
 					>
 						<BiChalkboard />
 						<span>TV Series</span>
 						<BiRightArrowAlt className="ml-auto transition-all duration-300 group-hover:rotate-90" />
-					</div>
+					</NavLink>
 					<ul className="ml-6 h-0 overflow-hidden transition-all duration-300 group-hover:h-[160px]">
 						<li>
-							<NavLink to={"/tv/airing-today"}>Airing Today</NavLink>
+							<NavLink
+								to={"/tv/airing-today"}
+								className={({ isActive }) => (isActive ? "bg-slate-200" : "")}
+							>
+								Airing Today
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to={"/tv/on-the-air"}>On The Air</NavLink>
+							<NavLink
+								to={"/tv/on-the-air"}
+								className={({ isActive }) => (isActive ? "bg-slate-200" : "")}
+							>
+								On The Air
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to={"/tv/popular"}>Popular</NavLink>
+							<NavLink
+								to={"/tv/popular"}
+								className={({ isActive }) => (isActive ? "bg-slate-200" : "")}
+							>
+								Popular
+							</NavLink>
 						</li>
 						<li>
-							<NavLink to={"/tv/top-rated-today"}>Top Rated Today</NavLink>
+							<NavLink
+								to={"/tv/top-rated-today"}
+								className={({ isActive }) => (isActive ? "bg-slate-200" : "")}
+							>
+								Top Rated Today
+							</NavLink>
 						</li>
 					</ul>
 				</li>
 				<li className="group">
-					<div
-						className={"flex items-center gap-2 px-1 py-2 hover:bg-slate-200"}
+					<NavLink
+						to={"/genre"}
+						className={({ isActive }) =>
+							(isActive ? "bg-slate-200" : "") +
+							" pointer-events-none flex items-center gap-2 px-1 py-2 hover:bg-slate-200"
+						}
 					>
 						<BiPurchaseTag />
 						<span>Genres</span>
 						<BiRightArrowAlt className="ml-auto transition-all duration-300 group-hover:rotate-90" />
-					</div>
-					<ul className="ml-6 h-0 overflow-hidden transition-all duration-300 group-hover:h-[280px] group-hover:overflow-y-scroll">
+					</NavLink>
+					<ul className="custom-scrollbar ml-6 h-0 overflow-hidden transition-all duration-300 group-hover:h-[280px] group-hover:overflow-y-scroll">
 						{genres
 							.sort((a, b) => {
 								if (a.name.toLowerCase() < b.name.toLowerCase()) {
@@ -130,7 +182,14 @@ export default function Navigation() {
 							.map((genre) => {
 								return (
 									<li key={genre.id}>
-										<NavLink to={`/genre/${genre.id}`}>{genre.name}</NavLink>
+										<NavLink
+											to={`/genre/${genre.id}`}
+											className={({ isActive }) =>
+												isActive ? "bg-slate-200" : ""
+											}
+										>
+											{genre.name}
+										</NavLink>
 									</li>
 								);
 							})}

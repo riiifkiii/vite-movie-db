@@ -208,5 +208,9 @@ export const getAiringTodayFetch = async () => {
 		`https://api.themoviedb.org/3/tv/airing_today?api_key=${key}`,
 	);
 	const responseJson = await response.json();
+	responseJson.results.map((item) => {
+		item.title = item.name;
+		item.media_type = "tv";
+	});
 	return responseJson;
 };
