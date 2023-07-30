@@ -2,10 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+	@apply h-[8px];
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	@apply rounded-full bg-slate-800;
+}
+
 nav a {
-	@apply w-full py-2 px-1 block hover:bg-slate-200;
+	@apply block w-full px-1 py-2 hover:bg-slate-200;
 }
 
 nav svg {
 	@apply text-xl;
+}
+
+section {
+	@apply ml-[300px] mt-[70px] bg-slate-100;
+}
+
+#top-bar a {
+	@apply rounded-full bg-slate-800 p-1 text-lg text-slate-50;
 }

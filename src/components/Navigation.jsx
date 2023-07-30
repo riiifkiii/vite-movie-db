@@ -39,10 +39,10 @@ export default function Navigation() {
 
 	if (isLoading) return "Loading...";
 
-	console.log(genres);
+	// console.log(genres);
 
 	return (
-		<nav className="h-screen w-[300px] overflow-hidden bg-slate-300 p-3">
+		<nav className="fixed left-0 top-0 z-50 h-screen overflow-hidden border-r border-slate-200 bg-white p-3 lg:w-[300px]">
 			<div
 				className={
 					"flex h-[60px] items-center justify-center gap-2 text-2xl font-bold"

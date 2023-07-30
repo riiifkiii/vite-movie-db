@@ -3,19 +3,22 @@ import pt from "prop-types";
 
 export default function Button({
 	to,
-	ref,
+	// ref,
 	className,
 	onClick,
 	children,
 	icon,
+	target,
 }) {
 	const ButtonLink = () => {
 		return (
 			<Link
 				to={to}
-				ref={ref}
+				// ref={`noopener noreferrer`}
 				className={`flex items-center gap-1 ` + className}
-				onClick={onClick}>
+				onClick={onClick}
+				target={target}
+			>
 				{icon}
 				{children}
 			</Link>
@@ -26,7 +29,8 @@ export default function Button({
 		return (
 			<button
 				className={`flex items-center gap-1 ` + className}
-				onClick={onClick}>
+				onClick={onClick}
+			>
 				{icon}
 				{children}
 			</button>
@@ -43,4 +47,5 @@ Button.propTypes = {
 	onClick: pt.func,
 	children: pt.any,
 	icon: pt.any,
+	target: pt.string,
 };
