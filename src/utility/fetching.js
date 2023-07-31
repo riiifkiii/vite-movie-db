@@ -88,7 +88,9 @@ export const getVideosFetch = async (type, id) => {
 		`https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${key}`,
 	);
 	const responseJson = await response.json();
-	return responseJson;
+	return responseJson.results.filter(
+		(item) => item.type === "Teaser" || item.type === "Trailer",
+	);
 };
 
 export const getPopularFetch = async (type) => {

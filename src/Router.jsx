@@ -2,9 +2,9 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Navigation from "./components/Navigation";
 import TopBar from "./components/TopBar";
-import Movie from "./pages/movies/Movie";
-import Trending from "./pages/movies/Trending";
+import Trending from "./pages/movie/Trending";
 import AiringToday from "./pages/tv/AiringToday";
+import Detail from "./pages/movie/Detail";
 
 export default function Router() {
 	return (
@@ -14,11 +14,11 @@ export default function Router() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/movie">
-					<Route index element={<Movie />} />
-					<Route path={"trending"} element={<Trending />} />
-					<Route path={"upcoming"} element={<Trending />} />
-					<Route path={"popular"} element={<Trending />} />
-					<Route path={"now-playing"} element={<Trending />} />
+					<Route path="trending" element={<Trending />} />
+					<Route path="upcoming" element={<Trending />} />
+					<Route path="popular" element={<Trending />} />
+					<Route path="now-playing" element={<Trending />} />
+					<Route path=":id" element={<Detail />} />
 				</Route>
 				<Route path="/tv">
 					<Route index element={<AiringToday />} />

@@ -48,6 +48,7 @@ export default function Home() {
 						data={trendings.results}
 						limit={10}
 						className={"h-[500px] w-full object-cover object-top"}
+						arrows={true}
 					/>
 					<List
 						data={upcomings.results}
