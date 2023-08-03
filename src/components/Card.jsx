@@ -5,16 +5,28 @@ import { Link } from "react-router-dom";
 export default function Card({ data, className }) {
 	return (
 		<Link
-			to={`${data.media_type}/${data.id}`}
+			to={`/${data.media_type}/${data.id}`}
 			id="card"
 			className={
 				`group relative aspect-video w-[360px] min-w-[300px] border border-slate-200 ` +
 				className
 			}
+			onClick={() => {
+				window.scrollTo({
+					top: 0,
+					behavior: "smooth",
+				});
+				document.querySelectorAll("#list").forEach((list) => {
+					list.scrollTo({
+						left: 0,
+						behavior: "smooth",
+					});
+				});
+			}}
 		>
 			<span className="absolute -top-2 right-2 z-40 flex flex-col items-center justify-center gap-1 bg-red-600 px-2 py-3 text-xs font-bold text-white">
 				<BiSolidStar />
-				{data.vote_average}
+				{String(data.vote_average).substring(0, 3)}
 			</span>
 			<div>
 				<picture>
@@ -22,7 +34,7 @@ export default function Card({ data, className }) {
 						src={
 							data.backdrop_path
 								? `http://image.tmdb.org/t/p/w780${data.backdrop_path}`
-								: "https://image.dummyjson.com/360x203?type=webp"
+								: "https://image.dummyjson.com/360x203/?text=Not+Found"
 						}
 						alt={data.title}
 						className="h-full w-full object-cover"

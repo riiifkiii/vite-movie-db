@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Navigation from "./components/Navigation";
 import TopBar from "./components/TopBar";
-import Trending from "./pages/movie/Trending";
+import MoviePages from "./pages/movie/MoviePages";
 import AiringToday from "./pages/tv/AiringToday";
 import Detail from "./pages/movie/Detail";
 
@@ -14,10 +14,10 @@ export default function Router() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/movie">
-					<Route path="trending" element={<Trending />} />
-					<Route path="upcoming" element={<Trending />} />
-					<Route path="popular" element={<Trending />} />
-					<Route path="now-playing" element={<Trending />} />
+					<Route path="trending" element={<MoviePages />} />
+					<Route path="upcoming" element={<MoviePages />} />
+					<Route path="popular" element={<MoviePages />} />
+					<Route path="now-playing" element={<MoviePages />} />
 					<Route path=":id" element={<Detail />} />
 				</Route>
 				<Route path="/tv">
@@ -28,7 +28,7 @@ export default function Router() {
 					<Route path="top-rated-today" element={<AiringToday />} />
 				</Route>
 				<Route path="/genre">
-					<Route path=":id" element={<Trending />} />
+					<Route path=":id" element={<MoviePages />} />
 				</Route>
 			</Routes>
 		</>

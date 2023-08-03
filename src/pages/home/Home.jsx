@@ -32,13 +32,14 @@ export default function Home() {
 				setIsLoading(false);
 			}
 		};
-
 		getData();
 	}, []);
 
 	if (isLoading) return "Loading...";
 
 	console.log(tvShowAiringToday, popularPerson);
+
+	document.title = "Home";
 
 	return (
 		<>

@@ -1,29 +1,32 @@
 const key = import.meta.env.VITE_API_KEY;
 
-export const getTrendingFetch = async (type, time) => {
+export const getTrendingFetch = async (type, time, page = 1) => {
 	const response = await fetch(
-		`https://api.themoviedb.org/3/trending/${type}/${time}?api_key=${key}`,
+		`https://api.themoviedb.org/3/trending/${type}/${time}?api_key=${key}&page=${page}`,
 	);
 	const responseJson = await response.json();
+	responseJson.data = "trending";
 	return responseJson;
 };
 
-export const getUpcomingFetch = async () => {
+export const getUpcomingFetch = async (page = 1) => {
 	const response = await fetch(
-		`https://api.themoviedb.org/3/movie/upcoming?api_key=${key}`,
+		`https://api.themoviedb.org/3/movie/upcoming?api_key=${key}&page=${page}`,
 	);
 	const responseJson = await response.json();
+	responseJson.data = "upcoming";
 	responseJson.results.map((media) => {
 		media.media_type = "movie";
 	});
 	return responseJson;
 };
 
-export const getNowPlayingFetch = async () => {
+export const getNowPlayingFetch = async (page = 1) => {
 	const response = await fetch(
-		`https://api.themoviedb.org/3/movie/now_playing?api_key=${key}`,
+		`https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&page=${page}`,
 	);
 	const responseJson = await response.json();
+	responseJson.data = "now-playing";
 	return responseJson;
 };
 
@@ -80,6 +83,9 @@ export const getSimilarFetch = async (type, id) => {
 		`https://api.themoviedb.org/3/${type}/${id}/similar?api_key=${key}`,
 	);
 	const responseJson = await response.json();
+	responseJson.results.map((item) => {
+		item.media_type = type;
+	});
 	return responseJson;
 };
 
@@ -93,11 +99,15 @@ export const getVideosFetch = async (type, id) => {
 	);
 };
 
-export const getPopularFetch = async (type) => {
+export const getPopularFetch = async (type, page = 1) => {
 	const response = await fetch(
-		`https://api.themoviedb.org/3/${type}/popular?api_key=${key}`,
+		`https://api.themoviedb.org/3/${type}/popular?api_key=${key}&page=${page}`,
 	);
 	const responseJson = await response.json();
+	responseJson.data = "popular";
+	responseJson.results.map((item) => {
+		item.media_type = type;
+	});
 	return responseJson;
 };
 
