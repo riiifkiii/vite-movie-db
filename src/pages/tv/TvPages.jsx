@@ -1,17 +1,17 @@
 /* eslint-disable no-case-declarations */
-import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import {
-	getNowPlayingFetch,
-	getPopularFetch,
-	getTrendingFetch,
-	getUpcomingFetch,
-} from "../../utility/fetching";
 import Slider from "../../components/Slider";
 import Poster from "../../components/Poster";
 import Button from "../../components/Button";
+import { useEffect, useState } from "react";
+import {
+	getAiringTodayFetch,
+	getOnTheAirFetch,
+	getPopularFetch,
+	getTopRatedFetch,
+} from "../../utility/fetching";
 
-export default function MoviePages() {
+export default function TvPages() {
 	const { pathname } = useLocation();
 	const pages = pathname.split("/").slice(2).join("");
 	const [data, setData] = useState([]);
@@ -22,25 +22,25 @@ export default function MoviePages() {
 		const getData = async () => {
 			try {
 				switch (pages) {
-					case "trending":
-						const dataTrending = await getTrendingFetch("movie", "day", page);
+					case "airing-today":
+						const dataTrending = await getAiringTodayFetch(page);
 						setData(dataTrending);
-						document.title = "Treinding Movies";
+						document.title = "Airing Tv Shows";
 						break;
-					case "now-playing":
-						const dataNowPlaying = await getNowPlayingFetch(page);
+					case "on-the-air":
+						const dataNowPlaying = await getOnTheAirFetch(page);
 						setData(dataNowPlaying);
-						document.title = "Now Playing Movies";
+						document.title = "On The Air Tv Shows";
 						break;
 					case "popular":
-						const dataPopular = await getPopularFetch("movie", page);
+						const dataPopular = await getPopularFetch("tv", page);
 						setData(dataPopular);
-						document.title = "Popular Movies";
+						document.title = "Popular Tv Shows";
 						break;
 					default:
-						const dataUpcoming = await getUpcomingFetch(page);
+						const dataUpcoming = await getTopRatedFetch("tv", page);
 						setData(dataUpcoming);
-						document.title = "Upcoming Movies";
+						document.title = "Top Rated Tv Shows";
 						break;
 				}
 			} catch (error) {
@@ -56,7 +56,7 @@ export default function MoviePages() {
 		});
 	}, [pages, page]);
 
-	if (isLoading) return "Loading";
+	if (isLoading) return "Loading...";
 
 	console.log(data);
 

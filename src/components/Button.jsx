@@ -10,6 +10,7 @@ export default function Button({
 	icon,
 	target,
 	title,
+	state,
 }) {
 	const ButtonLink = () => {
 		return (
@@ -21,6 +22,7 @@ export default function Button({
 				target={target}
 				title={title}
 				rel={rel}
+				state={state}
 			>
 				{icon}
 				{children}
@@ -53,4 +55,5 @@ Button.propTypes = {
 	icon: pt.any,
 	target: pt.string,
 	title: pt.string,
+	state: pt.any,
 };

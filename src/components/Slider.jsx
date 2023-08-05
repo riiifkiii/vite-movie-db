@@ -62,10 +62,15 @@ export default function Slider({
 								<div className=" w-full border-b border-slate-300 pb-2">
 									<h1 className="text-lg font-bold">{item.title}</h1>
 									<div className="flex items-center gap-2">
-										<span className="flex items-center gap-1 text-xs font-light text-slate-500">
-											<BiSolidCalendar />
-											{String(item.release_date).substring(0, 4)}
-										</span>
+										{item.release_date ? (
+											<span className="flex items-center gap-1 text-xs font-light text-slate-500">
+												<BiSolidCalendar />
+												{String(item.release_date).substring(0, 4)}
+											</span>
+										) : (
+											""
+										)}
+
 										<span className="flex items-center gap-1 text-xs font-light text-slate-500">
 											<BiSolidStar />
 											{String(item.vote_average).substring(0, 3)}

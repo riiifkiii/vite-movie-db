@@ -5,7 +5,6 @@ import {
 	getDetailFetch,
 	getImagesFetch,
 	getRecommendationsFetch,
-	// getReviewsFetch,
 	getSimilarFetch,
 	getVideosFetch,
 } from "../../utility/fetching";
@@ -13,54 +12,51 @@ import Slider from "../../components/Slider";
 import Button from "../../components/Button";
 import List from "../../components/List";
 
-export default function Detail() {
+export default function DetailTv() {
 	const { id } = useParams();
-	const [detailMovie, setDetailMovie] = useState([]);
-	const [imagesMovies, setImagesMovies] = useState([]);
+	// console.log(id);
+	const [data, setData] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const [images, setImages] = useState([]);
 	const [casts, setCasts] = useState([]);
 	const [videos, setVideos] = useState([]);
 	const [recomendations, setRecomendations] = useState([]);
 	const [similar, setSimilar] = useState([]);
-	// const [reviews, setReviews] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
 		const getData = async () => {
 			try {
-				const dataMovie = await getDetailFetch("movie", id);
-				const dataImage = await getImagesFetch("movie", id);
-				const dataCast = await getCreditsFetch("movie", id);
-				const dataVideo = await getVideosFetch("movie", id);
-				const dataRecomendations = await getRecommendationsFetch("movie", id);
-				const dataSimilar = await getSimilarFetch("movie", id);
-				// const dataReviews = await getReviewsFetch("movie", id);
-				setDetailMovie(dataMovie);
-				setImagesMovies(dataImage);
+				const dataTv = await getDetailFetch("tv", id);
+				const dataImages = await getImagesFetch("tv", id);
+				const dataCast = await getCreditsFetch("tv", id);
+				const dataVideo = await getVideosFetch("tv", id);
+				const dataRecomendations = await getRecommendationsFetch("tv", id);
+				const dataSimilar = await getSimilarFetch("tv", id);
+				setImages(dataImages);
+				setData(dataTv);
 				setCasts(dataCast);
 				setVideos(dataVideo);
 				setRecomendations(dataRecomendations);
 				setSimilar(dataSimilar);
-				// setReviews(dataReviews);
 			} catch (error) {
 				console.log(error);
 			} finally {
 				setIsLoading(false);
 			}
 		};
-
 		getData();
 	}, [id]);
 
 	if (isLoading) return "Loading ...";
 
-	console.log(imagesMovies.backdrops);
+	console.log(images);
 
-	document.title = detailMovie.title;
+	document.title = data.name;
 
 	return (
 		<section>
 			<Slider
-				data={imagesMovies.backdrops.length > 0 ? imagesMovies.backdrops : [1]}
+				data={images.backdrops.length > 0 ? images.backdrops : [1]}
 				limit={10}
 				card={false}
 				pauseOnHover={false}
@@ -70,8 +66,8 @@ export default function Detail() {
 				<div className="w-[20%] border border-slate-200 bg-white p-2">
 					<picture>
 						<img
-							src={`http://image.tmdb.org/t/p/w342${detailMovie.poster_path}`}
-							alt={detailMovie.title}
+							src={`http://image.tmdb.org/t/p/w342${data.poster_path}`}
+							alt={data.title}
 							className="h-full w-full object-cover"
 						/>
 					</picture>
@@ -82,7 +78,7 @@ export default function Detail() {
 						<div className=" p-2">
 							<h2>
 								<span className="text-xl font-bold">
-									{String(detailMovie.vote_average).substring(0, 3)}
+									{String(data.vote_average).substring(0, 3)}
 								</span>
 								<span className="text-xs">/10</span>
 							</h2>
@@ -93,16 +89,16 @@ export default function Detail() {
 					{/* detail */}
 					<div className="border border-slate-200 bg-white p-2">
 						<div className="border-b border-slate-200 pb-2">
-							<h1 className="text-xl font-bold">{detailMovie.title}</h1>
+							<h1 className="text-xl font-bold">{data.title}</h1>
 							<div className="flex items-center gap-1">
-								{detailMovie.genres.map((item, index) => {
+								{data.genres.map((item, index) => {
 									return (
 										<Button
 											key={index}
 											to={`/genre/${item.id}`}
 											title={item.name}
 											className={
-												"rounded-full bg-slate-800 px-2 py-1 text-xs font-light text-slate-50 hover:bg-slate-200 hover:text-slate-800"
+												"rounded-full bg-slate-800 px-2 py-1 text-xs font-light text-slate-50 transition-all duration-300 hover:bg-slate-200 hover:text-slate-800"
 											}
 										>
 											{item.name}
@@ -119,21 +115,44 @@ export default function Detail() {
 								<tbody>
 									<tr>
 										<td>Title</td>
-										<td>{detailMovie.title}</td>
+										<td>{data.title}</td>
 									</tr>
 									<tr>
-										<td>Release Date</td>
-										<td>{detailMovie.release_date}</td>
+										<td>First Air Date</td>
+										<td>{data.first_air_date}</td>
+									</tr>
+									<tr>
+										<td>Last Air Date</td>
+										<td>{data.last_air_date}</td>
+									</tr>
+									<tr>
+										<td>Season</td>
+										<td className="flex flex-wrap items-center gap-1">
+											{data.seasons.map((season) => {
+												return (
+													<Button
+														key={season.id}
+														to={`season/${season.season_number}`}
+														className={
+															"w-fit rounded bg-slate-800 px-2 py-1 text-slate-50 transition-all duration-300 hover:bg-slate-200 hover:text-slate-800"
+														}
+														state={{ images: images, title: data.title }}
+													>
+														Season {season.season_number}
+													</Button>
+												);
+											})}
+										</td>
 									</tr>
 									<tr>
 										<td>Homepage</td>
 										<td>
-											{detailMovie.homepage ? (
+											{data.homepage ? (
 												<Link
-													to={detailMovie.homepage}
+													to={data.homepage}
 													className="font-bold transition-all duration-300 hover:text-slate-500"
 												>
-													{detailMovie.title}
+													{data.title}
 												</Link>
 											) : (
 												"-"
@@ -141,16 +160,12 @@ export default function Detail() {
 										</td>
 									</tr>
 									<tr>
-										<td>Runtime</td>
-										<td>{detailMovie.runtime} min</td>
-									</tr>
-									<tr>
 										<td>Status</td>
-										<td>{detailMovie.status}</td>
+										<td>{data.status}</td>
 									</tr>
 									<tr>
 										<td>Overview</td>
-										<td>{detailMovie.overview}</td>
+										<td>{data.overview}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -167,17 +182,15 @@ export default function Detail() {
 								<div className="flex w-fit items-center gap-2">
 									{videos.slice(0, 10).map((item) => {
 										return (
-											<>
-												<iframe
-													key={item.id}
-													src={`https://www.youtube.com/embed/${item.key}`}
-													title={item.name}
-													frameBorder="0"
-													allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-													allowFullScreen
-													className="mb-2 block aspect-video w-[360px]"
-												/>
-											</>
+											<iframe
+												key={item.id}
+												src={`https://www.youtube.com/embed/${item.key}`}
+												title={item.name}
+												frameBorder="0"
+												allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+												allowFullScreen
+												className="mb-2 block aspect-video w-[360px]"
+											/>
 										);
 									})}
 								</div>

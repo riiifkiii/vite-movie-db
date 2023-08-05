@@ -26,6 +26,9 @@ export const getNowPlayingFetch = async (page = 1) => {
 		`https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&page=${page}`,
 	);
 	const responseJson = await response.json();
+	responseJson.results.map((item) => {
+		item.media_type = "movie";
+	});
 	responseJson.data = "now-playing";
 	return responseJson;
 };
@@ -43,6 +46,10 @@ export const getDetailFetch = async (type, id) => {
 		`https://api.themoviedb.org/3/${type}/${id}?api_key=${key}`,
 	);
 	const responseJson = await response.json();
+	if (!responseJson.title) {
+		responseJson.title = responseJson.name;
+	}
+	console.log(responseJson.name);
 	return responseJson;
 };
 
@@ -67,6 +74,11 @@ export const getRecommendationsFetch = async (type, id) => {
 		`https://api.themoviedb.org/3/${type}/${id}/recommendations?api_key=${key}`,
 	);
 	const responseJson = await response.json();
+	responseJson.results.map((item) => {
+		if (!item.title) {
+			item.title = item.name;
+		}
+	});
 	return responseJson;
 };
 
@@ -85,6 +97,9 @@ export const getSimilarFetch = async (type, id) => {
 	const responseJson = await response.json();
 	responseJson.results.map((item) => {
 		item.media_type = type;
+		if (!item.title) {
+			item.title = item.name;
+		}
 	});
 	return responseJson;
 };
@@ -107,6 +122,9 @@ export const getPopularFetch = async (type, page = 1) => {
 	responseJson.data = "popular";
 	responseJson.results.map((item) => {
 		item.media_type = type;
+		if (!item.title) {
+			item.title = item.name;
+		}
 	});
 	return responseJson;
 };
@@ -199,25 +217,33 @@ export const getEpisodeVideosFetch = async (
 	return responseJson;
 };
 
-export const getTopRatedFetch = async (type) => {
+export const getTopRatedFetch = async (type, page = 1) => {
 	const response = await fetch(
-		`https://api.themoviedb.org/3/${type}/top_rated?api_key=${key}`,
+		`https://api.themoviedb.org/3/${type}/top_rated?api_key=${key}$page=${page}`,
 	);
 	const responseJson = await response.json();
+	responseJson.results.map((item) => {
+		item.media_type = type;
+		item.title = item.name;
+	});
 	return responseJson;
 };
 
-export const getOnTheAirFetch = async () => {
+export const getOnTheAirFetch = async (page = 1) => {
 	const response = await fetch(
-		`https://api.themoviedb.org/3/tv/on_the_air?api_key=${key}`,
+		`https://api.themoviedb.org/3/tv/on_the_air?api_key=${key}&page=${page}`,
 	);
 	const responseJson = await response.json();
+	responseJson.results.map((item) => {
+		item.media_type = "tv";
+		item.title = item.name;
+	});
 	return responseJson;
 };
 
-export const getAiringTodayFetch = async () => {
+export const getAiringTodayFetch = async (page = 1) => {
 	const response = await fetch(
-		`https://api.themoviedb.org/3/tv/airing_today?api_key=${key}`,
+		`https://api.themoviedb.org/3/tv/airing_today?api_key=${key}&page=${page}`,
 	);
 	const responseJson = await response.json();
 	responseJson.results.map((item) => {

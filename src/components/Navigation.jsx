@@ -121,7 +121,7 @@ export default function Navigation() {
 						<span>TV Series</span>
 						<BiRightArrowAlt className="ml-auto transition-all duration-300 group-hover:rotate-90" />
 					</NavLink>
-					<ul className="ml-6 h-0 overflow-hidden transition-all duration-300 group-hover:h-[160px]">
+					<ul className="ml-6 h-0 overflow-hidden transition-all duration-300 group-hover:h-[120px]">
 						<li>
 							<NavLink
 								to={"/tv/airing-today"}
@@ -146,14 +146,14 @@ export default function Navigation() {
 								Popular
 							</NavLink>
 						</li>
-						<li>
+						{/* <li>
 							<NavLink
 								to={"/tv/top-rated-today"}
 								className={({ isActive }) => (isActive ? "bg-slate-200" : "")}
 							>
 								Top Rated Today
 							</NavLink>
-						</li>
+						</li> */}
 					</ul>
 				</li>
 				<li className="group">
