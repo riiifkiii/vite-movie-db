@@ -7,6 +7,7 @@ import TvPages from "./pages/tv/TvPages";
 import DetailMovie from "./pages/movie/DetailMovie";
 import DetailTv from "./pages/tv/DetailTv";
 import DetailSeason from "./pages/tv/DetailSeason";
+import GenreList from "./pages/genre/GenreList";
 
 export default function Router() {
 	return (
@@ -34,7 +35,7 @@ export default function Router() {
 					</Route>
 				</Route>
 				<Route path="/genre">
-					<Route path=":id" element={<MoviePages />} />
+					<Route path=":id" element={<GenreList />} />
 				</Route>
 			</Routes>
 		</>

@@ -100,6 +100,7 @@ export default function DetailTv() {
 											className={
 												"rounded-full bg-slate-800 px-2 py-1 text-xs font-light text-slate-50 transition-all duration-300 hover:bg-slate-200 hover:text-slate-800"
 											}
+											state={{ name: item.name }}
 										>
 											{item.name}
 										</Button>

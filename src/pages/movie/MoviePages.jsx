@@ -56,6 +56,10 @@ export default function MoviePages() {
 		});
 	}, [pages, page]);
 
+	useEffect(() => {
+		setPage(1);
+	}, [pages]);
+
 	if (isLoading) return "Loading";
 
 	console.log(data);
@@ -71,7 +75,9 @@ export default function MoviePages() {
 				</div>
 				<div className="mt-5 flex items-center justify-center gap-3">
 					<Button
-						className={"rounded bg-slate-300 px-3 py-1"}
+						className={
+							"rounded bg-slate-800 px-3 py-1 text-slate-50 disabled:bg-slate-500"
+						}
 						onClick={() => {
 							setPage(page - 1);
 							window.scrollTo({
@@ -79,6 +85,7 @@ export default function MoviePages() {
 								behavior: "smooth",
 							});
 						}}
+						disabled={page == 1 ? true : false}
 					>
 						Prev
 					</Button>
@@ -86,7 +93,9 @@ export default function MoviePages() {
 						{data.page}/{data.total_pages > 100 ? "100" : data.total_pages}
 					</span>
 					<Button
-						className={"rounded bg-slate-300 px-3 py-1"}
+						className={
+							"rounded bg-slate-800 px-3 py-1 text-slate-50 disabled:bg-slate-500"
+						}
 						onClick={() => {
 							setPage(page + 1);
 							window.scrollTo({
@@ -94,6 +103,11 @@ export default function MoviePages() {
 								behavior: "smooth",
 							});
 						}}
+						disabled={
+							page == (data.total_pages > 100 ? 100 : data.total_pages)
+								? true
+								: false
+						}
 					>
 						Next
 					</Button>

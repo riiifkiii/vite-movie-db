@@ -252,3 +252,17 @@ export const getAiringTodayFetch = async (page = 1) => {
 	});
 	return responseJson;
 };
+
+export const getMovieOrTvByGenre = async (type, id, page = 1) => {
+	const response = await fetch(
+		`https://api.themoviedb.org/3/discover/${type}?api_key=${key}&with_genres=${id}&language=en-US&page=${page}`,
+	);
+	const responseJson = await response.json();
+	responseJson.results.map((item) => {
+		item.media_type = type;
+		if (!item.title) {
+			item.title = item.name;
+		}
+	});
+	return responseJson;
+};

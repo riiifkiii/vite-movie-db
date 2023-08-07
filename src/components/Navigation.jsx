@@ -187,6 +187,7 @@ export default function Navigation() {
 											className={({ isActive }) =>
 												isActive ? "bg-slate-200" : ""
 											}
+											state={{ name: genre.name }}
 										>
 											{genre.name}
 										</NavLink>

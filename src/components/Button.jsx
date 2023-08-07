@@ -11,6 +11,7 @@ export default function Button({
 	target,
 	title,
 	state,
+	disabled = false,
 }) {
 	const ButtonLink = () => {
 		return (
@@ -36,6 +37,7 @@ export default function Button({
 				className={`flex items-center gap-1 ` + className}
 				onClick={onClick}
 				title={title}
+				disabled={disabled}
 			>
 				{icon}
 				{children}
@@ -56,4 +58,5 @@ Button.propTypes = {
 	target: pt.string,
 	title: pt.string,
 	state: pt.any,
+	disabled: pt.bool,
 };
