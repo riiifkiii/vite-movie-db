@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-case-declarations */
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -59,11 +60,30 @@ export default function GenreList() {
 		getData();
 	}, [id, sort, page]);
 
+	useEffect(() => {
+		setSort("all");
+	}, [id]);
+
 	if (isLoading) return "Loading ...";
 
 	document.title = "Genre: " + state.name;
 
-	console.log(state.name);
+	// console.log(state.name);
+
+	// const sortActive = () => {
+	// 	const menuSorting = document.querySelector("#sorting");
+	// 	menuSorting.addEventListener("click", (e) => {
+	// 		const target = e.target;
+	// 		console.log(target);
+	// 		const menuList = document.querySelectorAll("button");
+	// 		menuList.forEach((btn) => {
+	// 			btn.classList.remove("font-bold");
+	// 			if (target === btn) {
+	// 				btn.classList.add("font-bold");
+	// 			}
+	// 		});
+	// 	});
+	// };
 
 	return (
 		<section>
@@ -81,18 +101,22 @@ export default function GenreList() {
 								}
 								onClick={() => {
 									setSort("All");
+									// sortActive();
 								}}
+								id={"all"}
 							>
 								All
 							</Button>
 						</li>
 						<li>
 							<Button
+								id={"movie"}
 								className={
 									"rounded bg-slate-800 px-2 py-1 text-xs text-slate-50"
 								}
 								onClick={() => {
 									setSort("movie");
+									// sortActive();
 								}}
 							>
 								Movie
@@ -100,11 +124,13 @@ export default function GenreList() {
 						</li>
 						<li>
 							<Button
+								id={"tv"}
 								className={
 									"rounded bg-slate-800 px-2 py-1 text-xs text-slate-50"
 								}
 								onClick={() => {
 									setSort("tv");
+									// sortActive();
 								}}
 							>
 								TV

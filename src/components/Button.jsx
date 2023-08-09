@@ -12,6 +12,7 @@ export default function Button({
 	title,
 	state,
 	disabled = false,
+	id,
 }) {
 	const ButtonLink = () => {
 		return (
@@ -24,6 +25,7 @@ export default function Button({
 				title={title}
 				rel={rel}
 				state={state}
+				id={id}
 			>
 				{icon}
 				{children}
@@ -38,6 +40,7 @@ export default function Button({
 				onClick={onClick}
 				title={title}
 				disabled={disabled}
+				id={id}
 			>
 				{icon}
 				{children}
@@ -58,5 +61,6 @@ Button.propTypes = {
 	target: pt.string,
 	title: pt.string,
 	state: pt.any,
+	id: pt.string,
 	disabled: pt.bool,
 };

@@ -53,7 +53,7 @@ export default function DetailMovie() {
 
 	if (isLoading) return "Loading ...";
 
-	console.log(imagesMovies.backdrops);
+	// console.log(imagesMovies.backdrops);
 
 	document.title = detailMovie.title;
 
@@ -168,17 +168,15 @@ export default function DetailMovie() {
 								<div className="flex w-fit items-center gap-2">
 									{videos.slice(0, 10).map((item) => {
 										return (
-											<>
-												<iframe
-													key={item.id}
-													src={`https://www.youtube.com/embed/${item.key}`}
-													title={item.name}
-													frameBorder="0"
-													allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-													allowFullScreen
-													className="mb-2 block aspect-video w-[360px]"
-												/>
-											</>
+											<iframe
+												key={item.id}
+												src={`https://www.youtube.com/embed/${item.key}`}
+												title={item.name}
+												frameBorder="0"
+												allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+												allowFullScreen
+												className="mb-2 block aspect-video w-[360px]"
+											/>
 										);
 									})}
 								</div>

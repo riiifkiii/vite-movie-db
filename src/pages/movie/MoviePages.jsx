@@ -62,7 +62,7 @@ export default function MoviePages() {
 
 	if (isLoading) return "Loading";
 
-	console.log(data);
+	// console.log(data);
 
 	return (
 		<section>

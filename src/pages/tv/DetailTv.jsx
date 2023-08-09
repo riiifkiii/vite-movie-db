@@ -49,7 +49,7 @@ export default function DetailTv() {
 
 	if (isLoading) return "Loading ...";
 
-	console.log(images);
+	// console.log(images);
 
 	document.title = data.name;
 
@@ -152,6 +152,8 @@ export default function DetailTv() {
 												<Link
 													to={data.homepage}
 													className="font-bold transition-all duration-300 hover:text-slate-500"
+													target="_black"
+													rel="noopener noreferrer"
 												>
 													{data.title}
 												</Link>

@@ -49,7 +49,7 @@ export const getDetailFetch = async (type, id) => {
 	if (!responseJson.title) {
 		responseJson.title = responseJson.name;
 	}
-	console.log(responseJson.name);
+	// console.log(responseJson.name);
 	return responseJson;
 };
 
@@ -259,6 +259,28 @@ export const getMovieOrTvByGenre = async (type, id, page = 1) => {
 	);
 	const responseJson = await response.json();
 	responseJson.results.map((item) => {
+		item.media_type = type;
+		if (!item.title) {
+			item.title = item.name;
+		}
+	});
+	return responseJson;
+};
+
+export const getSearch = async (query) => {
+	const response = await fetch(
+		`https://api.themoviedb.org/3/search/multi?api_key=${key}&query=${query}&page=1`,
+	);
+	const responseJson = await response.json();
+	return responseJson;
+};
+
+export const getCreditsPerson = async (type, id) => {
+	const response = await fetch(
+		`https://api.themoviedb.org/3/person/${id}/${type}_credits?api_key=${key}`,
+	);
+	const responseJson = await response.json();
+	responseJson.cast.map((item) => {
 		item.media_type = type;
 		if (!item.title) {
 			item.title = item.name;

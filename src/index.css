@@ -31,7 +31,7 @@ section {
 	@apply ml-[300px] mt-[70px] bg-slate-100;
 }
 
-#top-bar a {
+#top-bar #social-media a {
 	@apply rounded-full bg-slate-800 p-1 text-lg text-slate-50;
 }
 

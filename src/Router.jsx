@@ -8,6 +8,7 @@ import DetailMovie from "./pages/movie/DetailMovie";
 import DetailTv from "./pages/tv/DetailTv";
 import DetailSeason from "./pages/tv/DetailSeason";
 import GenreList from "./pages/genre/GenreList";
+import DetailPerson from "./pages/person/DetailPerson";
 
 export default function Router() {
 	return (
@@ -36,6 +37,9 @@ export default function Router() {
 				</Route>
 				<Route path="/genre">
 					<Route path=":id" element={<GenreList />} />
+				</Route>
+				<Route path="/person">
+					<Route path=":id" element={<DetailPerson />} />
 				</Route>
 			</Routes>
 		</>

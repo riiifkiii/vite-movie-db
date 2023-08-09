@@ -40,7 +40,7 @@ export default function DetailSeason() {
 
 	document.title = state.title + " : Season " + seasonId;
 
-	console.log(data);
+	// console.log(data);
 
 	return (
 		<section className="relative">
